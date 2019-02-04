@@ -15,6 +15,14 @@ const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/smart-art', { useNewUrlParser: true });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(expressValidator()); // Add after body parser initialization!
+
+// Method Override
+app.use(methodOverride('_method'));
+
+
 const questions = require('./controllers/questions.js');
 app.use(questions);
 
