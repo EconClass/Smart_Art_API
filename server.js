@@ -2,7 +2,7 @@ if (!process.env.PORT) {
     require('dotenv').config()
     process.env.NODE_ENV = "dev"
 }
-  
+
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -23,7 +23,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 
 
+
 const questions = require('./controllers/questions.js');
-app.use(questions);
+questions(app);
 
 app.listen(port)

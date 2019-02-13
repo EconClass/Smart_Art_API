@@ -1,11 +1,25 @@
-const express = require('express'),
-app = express(),
-Question = require('../models/question.js');
+require('dotenv').config();
+
+const express = require('express');
+const request = require('superagent');
+const sampleHref = 'https://d32dm0rphc51dk.cloudfront.net/E-k-uLoQADM8AjadsSKHrA/four_thirds.jpg' // Test image
+const apiUrl = 'https://api.artsy.net/api/tokens/xapp_token';
+let xappToken;
+const app = express();
+const Question = require('../models/question.js');
+
 
 module.exports = (app) => {
     // HOME
     app.get('/', (req, res) => {
-        res.send('Hello there.');
+      request
+        .post(apiUrl)
+        .send({ client_id: process.env.client_id, client_secret: process.env.client_secret })
+        .end(function(result) {
+          console.log(result)
+          xappToken = result.body.token;
+          res.send(xappToken)
+        });
     });
     // CREATE
     app.post('/api/question', (req, res) => {
@@ -36,4 +50,9 @@ module.exports = (app) => {
             return res.redirect('/');
         });
     });
+
+    // // ------ Artsy API
+
+
+    // -------- End Artsy API
 }
