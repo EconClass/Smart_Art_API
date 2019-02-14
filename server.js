@@ -26,4 +26,7 @@ app.use(methodOverride('_method'));
 const questions = require('./controllers/questions.js');
 questions(app);
 
+const images = require('./controllers/images.js');
+images(app);
+
 app.listen(port)
