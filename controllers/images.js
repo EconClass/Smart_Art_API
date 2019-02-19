@@ -4,47 +4,30 @@ const app = express();
 
 
 module.exports = (app) => {
-    // let xAppToken;
-
-    // app.get('/api/image/token', (req, res) => {
-    //     axios.post('https://api.artsy.net/api/tokens/xapp_token', {
-    //         client_id: process.env.ID,
-    //         client_secret: process.env.SECRET
-    //     })
-    //     .then(function (response) {
-    //         xAppToken = response.data.token;
-    //     })
-    //     .catch(function (error) {
-    //         console.log(error);
-    //     });
-    //     res.send(xAppToken);
-    // });
-
-    // app.get('/api/image/:artist', (req, res) => {
-    //     axios.get(`https://api.artsy.net/api/artists/${req.params.artist}`, {
-    //         headers: { 'X-Xapp-Token': process.env.TOKEN}
-    //     })
-    //     .then( response => {
-    //         // const images = response.data._links;
-    //         res.send(response.data._links)
-    //     })
-    //     .catch( error => {
-    //         console.log(error);
-    //     });
-    //     // res.send(images)
-    // });
 
     app.get('/api/image/artworks', (req, res) => {
+        let returnArray = [];
         axios.get("https://api.art.rmngp.fr/v1/works", {
             headers: { "ApiKey": "demo"}
         })
         .then( response => {
-            console.log(response)
-            res.send(response.data.hits.hits)
+            let resArray = response.data.hits.hits;
+            let count = 0;
+            while ( count < resArray.length - 1 ) {
+                // console.log(resArray[count])
+                let another = resArray[count];
+                let index = 0;
+                while (index < another._source.images.length - 1){
+                    // console.log(another._source.images[index].urls.medium.url)
+                    returnArray.push(another._source.images[index].urls.medium.url)
+                    index++
+                }
+                count++
+            };
+            res.send(returnArray)
         })
         .catch( error => {
             console.log(error.message);
-        });
-        // res.send(images)
+        });   
     });
 };
