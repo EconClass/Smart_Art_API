@@ -29,4 +29,7 @@ questions(app);
 const images = require('./controllers/images.js');
 images(app);
 
+const harvardPics = require('./controllers/harvardPics.js');
+harvardPics(app);
+
 app.listen(port)
