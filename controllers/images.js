@@ -5,6 +5,7 @@ const app = express();
 
 module.exports = (app) => {
 
+    // All artworks from Images d'Art API
     app.get('/api/image/artworks', (req, res) => {
         let returnArray = [];
         axios.get("https://api.art.rmngp.fr/v1/works", {
@@ -13,15 +14,12 @@ module.exports = (app) => {
         .then( response => {
             let resArray = response.data.hits.hits;
             let count = 0;
-            while ( count < resArray.length - 1 ) {
+            console.log(response.data.hits.hits)
+            // console.log(resArray[1]._source.images[0].urls.original)
+            while ( count < resArray.length ) {
                 // console.log(resArray[count])
-                let another = resArray[count];
-                let index = 0;
-                while (index < another._source.images.length - 1){
-                    // console.log(another._source.images[index].urls.medium.url)
-                    returnArray.push(another._source.images[index].urls.medium.url)
-                    index++
-                }
+                let add = resArray[count]._source.images[0].urls.original;
+                returnArray.push(add)
                 count++
             };
             res.send(returnArray)
