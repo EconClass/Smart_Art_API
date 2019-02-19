@@ -39,4 +39,16 @@ module.exports = (app) => {
             res.send(data);
         });
     });
+
+    // get one image by id
+    app.get('/api/all', (req, res) => {
+        restler.get('https://api.harvardartmuseums.org/image', {
+            query: {
+                apikey: process.env.KEY,
+            }
+        })
+        .on("complete", function(data, response) {
+            res.send(data);
+        });
+    });
 };
