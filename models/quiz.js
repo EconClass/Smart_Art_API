@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 const QuizSchema = new Schema({
     createdAt: { type: Date },
     updatedAt: { type: Date },
-    title: { type: String, required: true },
-    questions: [{ type: Schema.Types.ObjectId }],
+    questions: [{ type: Object }],
     category: [String]
 });
 

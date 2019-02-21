@@ -2,11 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const QuestionSchema = new Schema({
-    createdAt: { type: Date },
-    updatedAt: { type: Date },
-    title: { type: String, required: true },
     question: { type: String, required: true },
-    choices: [{ type: Object, required: true }],
+    correct: { type: String, required: true },
+    choices: [{ type: String, required: true }],
 });
 
 QuestionSchema.pre("save", function(next) {

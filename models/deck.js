@@ -5,8 +5,7 @@ const DeckSchema = new Schema({
     createdAt: { type: Date },
     updatedAt: { type: Date },
     title: {type: String, required: true},
-    cards: [{ type: Object, required: true }],
-    score: { type: Number }
+    cards: [{ type: Object }],
 });
 
 DeckSchema.pre("save", function(next) {
