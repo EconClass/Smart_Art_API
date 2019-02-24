@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const restler = require("restler");
 module.exports = (app) => {
+    
     // returns all objects in their db 10 at a time
     app.get('/api/objects', (req, res) => {
         restler.get("https://api.harvardartmuseums.org/object", {
