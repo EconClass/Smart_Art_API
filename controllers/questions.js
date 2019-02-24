@@ -12,9 +12,11 @@ const Question = require('../models/question.js');
 module.exports = (app) => {
     // HOME
     app.get('/', (req, res) => {
+      const sendMe = { client_id: process.env.client_id, client_secret: process.env.client_secret }
+      console.log(sendMe)
       request
         .post(apiUrl)
-        .send({ client_id: process.env.client_id, client_secret: process.env.client_secret })
+        .send(sendMe)
         .end(function(result) {
           console.log(result)
           xappToken = result.body.token;
