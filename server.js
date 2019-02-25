@@ -22,6 +22,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Method Override
 app.use(methodOverride('_method'));
 
+const quizzes = require('./controllers/quizzes.js');
+quizzes(app);
 
 const questions = require('./controllers/questions.js');
 questions(app);

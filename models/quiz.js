@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
+const Question = require('./question.js');
 const Schema = mongoose.Schema;
 
 const QuizSchema = new Schema({
     createdAt: { type: Date },
     updatedAt: { type: Date },
-    questions: [{ type: Object }],
+    questions: [Question.schema],
     category: [String]
 });
 
