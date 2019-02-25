@@ -1,14 +1,20 @@
 const express = require('express'),
 app = express(),
 Card = require('../models/card.js');
+Deck = require('../models/deck.js');
 
 module.exports = (app) => {
     // CREATE
-    app.post('/api/deck/:id/card ', (req, res) => {
+    app.post('/api/deck/:id/card ', async (req, res) => {
         let card = new Card(req.body)
-        card.save(() => {
-            return res.redirect(`/api/deck/${req.params.id}`);
-        });
+        Deck.findOne({ _id: req.params.id }).then( deck => {
+            card.save()
+            deck.cards.unshift(card._id)
+            deck.save(() => {
+                return res.redirect(`/api/deck/${req.params.id}`);
+            });
+        })
+        
     });
 
     // READ

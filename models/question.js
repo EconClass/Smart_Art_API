@@ -8,7 +8,6 @@ const QuestionSchema = new Schema({
 });
 
 QuestionSchema.pre("save", function(next) {
-    // SET createdAt AND updatedAt
     const now = new Date();
     this.updatedAt = now;
 

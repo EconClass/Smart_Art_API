@@ -10,7 +10,6 @@ const QuizSchema = new Schema({
 });
 
 QuizSchema.pre("save", function(next) {
-    // SET createdAt AND updatedAt
     const now = new Date();
     this.updatedAt = now;
 

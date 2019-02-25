@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/smart-art', { u
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(expressValidator()); // Add after body parser initialization!
+// app.use(expressValidator());
 
 // Method Override
 app.use(methodOverride('_method'));
