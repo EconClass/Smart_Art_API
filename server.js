@@ -3,10 +3,7 @@ if (!process.env.PORT) {
     process.env.NODE_ENV = "dev"
 }
 
-<<<<<<< HEAD
-=======
 //==========================DEPENDENCIES==========================\\
->>>>>>> develop
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -29,7 +26,6 @@ app.use(methodOverride('_method'));
 //==========================CONTROLLERS==========================\\
 const quizzes = require('./controllers/quizzes.js');
 quizzes(app);
-
 
 const questions = require('./controllers/questions.js');
 questions(app);

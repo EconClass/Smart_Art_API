@@ -22,14 +22,6 @@ module.exports = (app) => {
         });
     });
 
-    // // CREATE
-    // app.post('/api/question', (req, res) => {
-    //     let question = new Question(req.body)
-    //     question.save(() => {
-    //         return res.redirect('/');
-    //     });
-    // });
-
     // READ
     app.get('/api/question/:id', (req, res) => {
         Question.findOne( { _id: req.params.id } )
@@ -59,11 +51,4 @@ module.exports = (app) => {
             });
         });
     });
-    // DESTROY
-    // app.delete('/api/question/:id/delete', (req, res) => {
-    //     Question.findOneAndRemove({ _id: req.params.id })
-    //     .exec( (err, question) => {
-    //         return res.redirect('/');
-    //     });
-    // });
 }
