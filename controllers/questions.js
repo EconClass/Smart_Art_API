@@ -1,13 +1,6 @@
-require('dotenv').config();
-
-const express = require('express');
-const request = require('superagent');
-const sampleHref = 'https://d32dm0rphc51dk.cloudfront.net/E-k-uLoQADM8AjadsSKHrA/four_thirds.jpg' // Test image
-const apiUrl = 'https://api.artsy.net/api/tokens/xapp_token';
-let xappToken;
-const app = express();
-const Question = require('../models/question.js');
-
+const express = require('express'),
+app = express();
+Question = require('../models/question.js');
 
 module.exports = (app) => {
     // HOME

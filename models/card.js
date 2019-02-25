@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const QuestionSchema = new Schema({
+const CardSchema = new Schema({
+    createdAt: { type: Date },
+    updatedAt: { type: Date },
     question: { type: String, required: true },
-    correct: { type: String, required: true },
-    choices: [{ type: String, required: true }],
+    answer: { type: String, required: true },
 });
 
-QuestionSchema.pre("save", function(next) {
+CardSchema.pre("save", function(next) {
     // SET createdAt AND updatedAt
     const now = new Date();
     this.updatedAt = now;
@@ -19,4 +20,4 @@ QuestionSchema.pre("save", function(next) {
     next();
 });
 
-module.exports = mongoose.model("Question", QuestionSchema);
+module.exports = mongoose.model("Card", CardSchema);
