@@ -3,12 +3,12 @@ const Schema = mongoose.Schema;
 
 const QuestionSchema = new Schema({
     question: { type: String, required: true },
+    image: String,
     correct: { type: String, required: true },
     choices: [{ type: String, required: true }],
 });
 
 QuestionSchema.pre("save", function(next) {
-    // SET createdAt AND updatedAt
     const now = new Date();
     this.updatedAt = now;
 

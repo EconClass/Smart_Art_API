@@ -3,6 +3,10 @@ if (!process.env.PORT) {
     process.env.NODE_ENV = "dev"
 }
 
+<<<<<<< HEAD
+=======
+//==========================DEPENDENCIES==========================\\
+>>>>>>> develop
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -17,18 +21,18 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/smart-art', { u
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(expressValidator()); // Add after body parser initialization!
+// app.use(expressValidator());
 
 // Method Override
 app.use(methodOverride('_method'));
 
+//==========================CONTROLLERS==========================\\
+const quizzes = require('./controllers/quizzes.js');
+quizzes(app);
 
 
 const questions = require('./controllers/questions.js');
 questions(app);
-
-const images = require('./controllers/images.js');
-images(app);
 
 const harvardPics = require('./controllers/harvardPics.js');
 harvardPics(app);
