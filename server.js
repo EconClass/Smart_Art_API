@@ -2,7 +2,8 @@ if (!process.env.PORT) {
     require('dotenv').config()
     process.env.NODE_ENV = "dev"
 }
-  
+
+//==========================DEPENDENCIES==========================\\
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Method Override
 app.use(methodOverride('_method'));
 
+//==========================CONTROLLERS==========================\\
 const quizzes = require('./controllers/quizzes.js');
 quizzes(app);
 
