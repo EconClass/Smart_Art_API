@@ -2,8 +2,12 @@ const express = require('express');
 const app = express();
 const restler = require("restler");
 module.exports = (app) => {
+<<<<<<< HEAD
 
 
+=======
+    
+>>>>>>> 3067f47f18247a40555d310cfcdb8a530fe1b452
     // returns all objects in their db 10 at a time
     app.get('/api/objects', (req, res) => {
         restler.get("https://api.harvardartmuseums.org/object", {
@@ -28,8 +32,12 @@ module.exports = (app) => {
             }
         })
         .on("complete", function(data, response) {
+<<<<<<< HEAD
           console.log(response)
             res.render('culture.handlebars');
+=======
+            res.send(data);
+>>>>>>> 3067f47f18247a40555d310cfcdb8a530fe1b452
         });
     });
 
@@ -71,7 +79,11 @@ module.exports = (app) => {
         });
     });
 
+<<<<<<< HEAD
     // get one image by id
+=======
+    // get all objects in db
+>>>>>>> 3067f47f18247a40555d310cfcdb8a530fe1b452
     app.get('/api/all', (req, res) => {
         // returns a an array size 10 of objects at a time for all images in db
         restler.get('https://api.harvardartmuseums.org/image', {
@@ -83,4 +95,8 @@ module.exports = (app) => {
             res.send(data);
         });
     });
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 3067f47f18247a40555d310cfcdb8a530fe1b452

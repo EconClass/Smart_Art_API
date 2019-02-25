@@ -1,6 +1,7 @@
 const express = require('express'),
 app = express();
 Question = require('../models/question.js');
+<<<<<<< HEAD
 
 module.exports = (app) => {
     // HOME
@@ -21,8 +22,37 @@ module.exports = (app) => {
         let question = new Question(req.body)
         question.save(() => {
             return res.redirect('/');
+=======
+Quiz = require('../models/quiz.js');
+
+module.exports = (app) => {
+    // HOME
+    app.get('/', (req, res) => {
+      res.send('Hello there.')
+    });
+
+    // CREATE Question
+    app.post('/api/quiz/:quizId/question', (req, res) => {
+        Quiz.findOne( { _id: req.params.quizId} )
+        .exec( ( err, quiz) => {
+            console.log(quiz)
+            let question = new Question(req.body);
+            quiz.questions.unshift(question);
+            quiz.save( ask => {
+                res.redirect(`/api/quiz/${req.params.quizId}`)
+            })
+>>>>>>> 3067f47f18247a40555d310cfcdb8a530fe1b452
         });
     });
+
+    // // CREATE
+    // app.post('/api/question', (req, res) => {
+    //     let question = new Question(req.body)
+    //     question.save(() => {
+    //         return res.redirect('/');
+    //     });
+    // });
+
     // READ
     app.get('/api/question/:id', (req, res) => {
         Question.findOne( { _id: req.params.id } )
@@ -30,6 +60,7 @@ module.exports = (app) => {
             res.send(question);
         });
     });
+
     // UPDATE
     app.put('/api/question/:id', (req, res) => {
 
@@ -38,16 +69,24 @@ module.exports = (app) => {
             res.redirect(`/api/question/${req.params.id}`);
         });
     });
-    // DESTROY
-    app.delete('/api/question/:id/delete', (req, res) => {
-        Question.findOneAndRemove({ _id: req.params.id })
-        .exec( (err, question) => {
-            return res.redirect('/');
+
+    // Delete Question
+    app.post('/api/quiz/:quizId/question/:id/delete', (req, res) => {
+        Quiz.findOne({ _id: req.params.quizId })
+        .exec( (err,quiz) => {
+            quiz.questions = quiz.questions.filter( ask => {
+                return String( ask._id ) !== req.params.id;
+            })
+            quiz.save().then(quiz => {
+                res.redirect(`/api/quiz/${req.params.quizId}`)
+            });
         });
     });
-
-    // // ------ Artsy API
-
-
-    // -------- End Artsy API
+    // DESTROY
+    // app.delete('/api/question/:id/delete', (req, res) => {
+    //     Question.findOneAndRemove({ _id: req.params.id })
+    //     .exec( (err, question) => {
+    //         return res.redirect('/');
+    //     });
+    // });
 }

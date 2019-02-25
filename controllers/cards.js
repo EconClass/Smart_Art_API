@@ -1,6 +1,7 @@
 const express = require('express'),
 app = express(),
 Card = require('../models/card.js');
+<<<<<<< HEAD
 
 module.exports = (app) => {
     // CREATE
@@ -9,6 +10,22 @@ module.exports = (app) => {
         card.save(() => {
             return res.redirect(`/api/deck/${req.params.id}`);
         });
+=======
+Deck = require('../models/deck.js');
+
+module.exports = (app) => {
+    // CREATE
+    app.post('/api/deck/:id/card ', async (req, res) => {
+        let card = new Card(req.body)
+        Deck.findOne({ _id: req.params.id }).then( deck => {
+            card.save()
+            deck.cards.unshift(card._id)
+            deck.save(() => {
+                return res.redirect(`/api/deck/${req.params.id}`);
+            });
+        })
+        
+>>>>>>> 3067f47f18247a40555d310cfcdb8a530fe1b452
     });
 
     // READ
