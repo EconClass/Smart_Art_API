@@ -9,25 +9,26 @@ module.exports = (app) => {
       res.send('Hello there.')
     });
 
+    // CREATE Question
     app.post('/api/quiz/:quizId/question', (req, res) => {
         Quiz.findOne( { _id: req.params.quizId} )
         .exec( ( err, quiz) => {
             console.log(quiz)
-            // let mon = req.body.pokemon;
-            // quiz.teams.pokemons.unshift(mon);
-            // team.save(pokemon => {
-            //     res.redirect(`/quiz/${req.params.quizId}/team/${req.params.teamId}`)
-            // })
+            let question = new Question(req.body);
+            quiz.questions.unshift(question);
+            quiz.save( ask => {
+                res.redirect(`/api/quiz/${req.params.quizId}`)
+            })
         });
     });
 
-    // CREATE
-    app.post('/api/question', (req, res) => {
-        let question = new Question(req.body)
-        question.save(() => {
-            return res.redirect('/');
-        });
-    });
+    // // CREATE
+    // app.post('/api/question', (req, res) => {
+    //     let question = new Question(req.body)
+    //     question.save(() => {
+    //         return res.redirect('/');
+    //     });
+    // });
 
     // READ
     app.get('/api/question/:id', (req, res) => {
@@ -50,7 +51,7 @@ module.exports = (app) => {
     app.post('/api/quiz/:quizId/question/:id/delete', (req, res) => {
         Quiz.findOne({ _id: req.params.quizId })
         .exec( (err,quiz) => {
-            quiz.question = quiz.question.filter( ask => {
+            quiz.questions = quiz.questions.filter( ask => {
                 return String( ask._id ) !== req.params.id;
             })
             quiz.save().then(quiz => {

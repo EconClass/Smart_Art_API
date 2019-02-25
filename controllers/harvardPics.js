@@ -68,7 +68,7 @@ module.exports = (app) => {
         });
     });
 
-    // get one image by id
+    // get all objects in db
     app.get('/api/all', (req, res) => {
         // returns a an array size 10 of objects at a time for all images in db
         restler.get('https://api.harvardartmuseums.org/image', {

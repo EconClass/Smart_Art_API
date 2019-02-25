@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const QuestionSchema = new Schema({
     question: { type: String, required: true },
+    image: String,
     correct: { type: String, required: true },
     choices: [{ type: String, required: true }],
 });
