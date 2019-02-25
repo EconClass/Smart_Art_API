@@ -4,18 +4,18 @@ Question = require('../models/question.js');
 
 module.exports = (app) => {
     // HOME
-    app.get('/', (req, res) => {
-      const sendMe = { client_id: process.env.client_id, client_secret: process.env.client_secret }
-      console.log(sendMe)
-      request
-        .post(apiUrl)
-        .send(sendMe)
-        .end(function(result) {
-          console.log(result)
-          xappToken = result.body.token;
-          res.send(xappToken)
-        });
-    });
+    // app.get('/', (req, res) => {
+    //   const sendMe = { client_id: process.env.client_id, client_secret: process.env.client_secret }
+    //   console.log(sendMe)
+    //   request
+    //     .post(apiUrl)
+    //     .send(sendMe)
+    //     .end(function(result) {
+    //       console.log(result)
+    //       xappToken = result.body.token;
+    //       res.send(xappToken)
+    //     });
+    // });
     // CREATE
     app.post('/api/question', (req, res) => {
         let question = new Question(req.body)

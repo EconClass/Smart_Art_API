@@ -3,10 +3,6 @@ const app = express();
 const restler = require("restler");
 module.exports = (app) => {
 
-    // Adding root route: homepage
-    app.get('/', (req, res) => {
-      res.render('homepage.handlebars')
-    })
 
     // returns all objects in their db 10 at a time
     app.get('/api/objects', (req, res) => {
