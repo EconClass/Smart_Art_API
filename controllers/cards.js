@@ -1,16 +1,6 @@
 const express = require('express'),
 app = express(),
 Card = require('../models/card.js');
-<<<<<<< HEAD
-
-module.exports = (app) => {
-    // CREATE
-    app.post('/api/deck/:id/card ', (req, res) => {
-        let card = new Card(req.body)
-        card.save(() => {
-            return res.redirect(`/api/deck/${req.params.id}`);
-        });
-=======
 Deck = require('../models/deck.js');
 
 module.exports = (app) => {
@@ -24,8 +14,7 @@ module.exports = (app) => {
                 return res.redirect(`/api/deck/${req.params.id}`);
             });
         })
-        
->>>>>>> 3067f47f18247a40555d310cfcdb8a530fe1b452
+
     });
 
     // READ
@@ -46,7 +35,7 @@ module.exports = (app) => {
             res.redirect(`/api/card/${req.params.id}`);
         });
     });
-    
+
     // DESTROY
     app.delete('/api/deck/:id/card/:cardId/delete', (req, res) => {
         card.findOneAndRemove({ _id: req.params.id })

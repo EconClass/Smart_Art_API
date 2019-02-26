@@ -1,35 +1,18 @@
 const express = require('express'),
 app = express();
 Question = require('../models/question.js');
-<<<<<<< HEAD
-
-module.exports = (app) => {
-    // HOME
-    // app.get('/', (req, res) => {
-    //   const sendMe = { client_id: process.env.client_id, client_secret: process.env.client_secret }
-    //   console.log(sendMe)
-    //   request
-    //     .post(apiUrl)
-    //     .send(sendMe)
-    //     .end(function(result) {
-    //       console.log(result)
-    //       xappToken = result.body.token;
-    //       res.send(xappToken)
-    //     });
-    // });
-    // CREATE
-    app.post('/api/question', (req, res) => {
-        let question = new Question(req.body)
-        question.save(() => {
-            return res.redirect('/');
-=======
 Quiz = require('../models/quiz.js');
 
 module.exports = (app) => {
     // HOME
     app.get('/', (req, res) => {
-      res.send('Hello there.')
+      res.render('homepage.handlebars')
     });
+
+    // New Question form
+    app.get('/quiz/:quizId/question/new', (req, res) => {
+      res.render('new-question.handlebars')
+    })
 
     // CREATE Question
     app.post('/api/quiz/:quizId/question', (req, res) => {
@@ -41,24 +24,22 @@ module.exports = (app) => {
             quiz.save( ask => {
                 res.redirect(`/api/quiz/${req.params.quizId}`)
             })
->>>>>>> 3067f47f18247a40555d310cfcdb8a530fe1b452
         });
     });
 
-    // // CREATE
-    // app.post('/api/question', (req, res) => {
-    //     let question = new Question(req.body)
-    //     question.save(() => {
-    //         return res.redirect('/');
-    //     });
-    // });
-
     // READ
-    app.get('/api/question/:id', (req, res) => {
-        Question.findOne( { _id: req.params.id } )
-        .then( question => {
-            res.send(question);
-        });
+    app.get('/api/quiz/:quizId/question/:id', (req, res) => {
+        Quiz.findOne( { _id: req.params.quizId} )
+        .then( quiz => {
+          Question.findOne( { _id: req.params.id} )
+          .then( question => {
+            res.render('show-question.handlebars')
+          })
+        })
+        // Question.findOne( { _id: req.params.id } )
+        // .then( question => {
+        //     res.render('show-question');
+        // });
     });
 
     // UPDATE

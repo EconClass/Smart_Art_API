@@ -18,9 +18,13 @@ module.exports = (app) => {
             if (req.header('content-type') == 'application/json'){
                 return res.json(quiz)
             }
-            res.send(quiz);
+            console.log(quiz)
+            res.render('show-quiz.handlebars', {quiz: quiz});
+
         });
     });
+
+
 
     // UPDATE
     app.put('/api/quiz/:id', (req, res) => {
@@ -29,7 +33,12 @@ module.exports = (app) => {
             res.redirect(`/api/quiz/${req.params.id}`);
         });
     });
-    
+
+    // New Quiz form
+    app.get('/quiz/new', (req, res) => {
+      res.render('new-quiz.handlebars')
+    })
+
     // DESTROY
     app.delete('/api/quiz/:id/delete', (req, res) => {
         Quiz.findOneAndRemove({ _id: req.params.id })

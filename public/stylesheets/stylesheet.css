@@ -1,0 +1,121 @@
+/* Begin Global CSS */
+body {
+  font-family: cursive;
+}
+/* End Global CSS */
+
+/* Begin Navbar Section */
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #171818;
+}
+
+.navbar li {
+  float: right;
+}
+
+.navbar li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar li a:hover:not(.active) {
+  background-color: #DCDCDC;
+}
+
+.navbar .active {
+  background-color: #4CAF50;
+}
+/* End Navbar Section */
+
+
+/* Begin Screen Secion */
+.screen {
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  display: flex;
+}
+/* End Screen Section */
+
+/* Begin Hero Section */
+.hero-section {
+  width: 30%;
+  height: 100%;
+  background-color: #EDF0F1;
+}
+/* End Hero Section */
+
+/* Begin Hero Image Section */
+.hero-image-container {
+  height: 40%;
+  /* background-color: green; */
+
+}
+
+.hero-image-container img {
+  height: 75%;
+  width: 45%;
+  display: block;
+  margin: auto;
+  padding-top: 20px;
+}
+/* End Hero Image Section */
+
+/* Begin Hero Text Section */
+.hero-text-container {
+  height: 60%;
+}
+
+.hero-text {
+  background-color: white;
+  margin: 20px;
+  border-style: ridge;
+}
+/* End Hero Text Section */
+
+
+/* Begin Question Section */
+.question-section {
+  width: 70%;
+  height: 100%;
+  background-color: #2f3030;
+}
+/* End Question Section */
+
+
+/* Begin Question Image Section */
+.question-image img {
+  display: block;
+  margin: auto;
+  padding-top: 20px;
+}
+/* End Question Image Section */
+
+/* Begin Question Answers Section */
+.question-answers {
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 50px;
+  margin: auto;
+}
+
+.question-answers .button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  /* display: inline-block; */
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+/* End Question Answers Section */
