@@ -2,18 +2,17 @@ const express = require('express');
 const app = express();
 const restler = require("restler");
 module.exports = (app) => {
-    
-    // returns all objects in their db 10 at a time
-    app.get('/api/objects', (req, res) => {
+
+    // returns objects by century
+    app.get('/api/century/:cent', (req, res) => {
         restler.get("https://api.harvardartmuseums.org/object", {
             query: {
                 apikey: process.env.KEY,
-                title: "dog",
-                fields: "objectnumber,title,dated",
+                century: `${req.params.cent}`,
             }
         })
         .on("complete", function(data, response) {
-            res.send(data.records);
+            res.send(data);
         });
     });
 

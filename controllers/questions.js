@@ -1,7 +1,6 @@
-const express = require('express'),
-app = express();
-Question = require('../models/question.js');
-Quiz = require('../models/quiz.js');
+const Question = require('../models/question.js');
+const Quiz = require('../models/quiz.js');
+const restler = require("restler");
 
 module.exports = (app) => {
     // HOME
@@ -11,6 +10,7 @@ module.exports = (app) => {
 
     // CREATE Question
     app.post('/api/quiz/:quizId/question', (req, res) => {
+        console.log(req.body)
         Quiz.findOne( { _id: req.params.quizId} )
         .exec( ( err, quiz) => {
             console.log(quiz)
@@ -18,7 +18,7 @@ module.exports = (app) => {
             quiz.questions.unshift(question);
             quiz.save( ask => {
                 res.redirect(`/api/quiz/${req.params.quizId}`)
-            })
+            });
         });
     });
 
@@ -29,7 +29,28 @@ module.exports = (app) => {
             res.send(question);
         });
     });
-
+    //
+    app.get('/quiz/:id/question/new', (req, res) => {
+        Quiz.findOne( { _id: req.params.id } )
+        .then( quiz => {
+            restler.get("https://api.harvardartmuseums.org/object", {
+                query: {
+                    apikey: process.env.KEY,
+                    period: "Romanticism",
+                    sort: "random",
+                    hasimage: 1
+                }
+            })
+            .on("complete", function(data, response) {
+                res.render("question.hbs", {
+                    data: data,
+                    id: req.params.id
+                    // artist: data.records.people[0]
+                });
+            });
+        });
+    });
+    
     // UPDATE
     app.put('/api/question/:id', (req, res) => {
 
