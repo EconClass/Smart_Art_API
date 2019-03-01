@@ -1,8 +1,9 @@
 <div class="row"></div>
     <div class="col-sm-4 col-sm-offset-4">
         {{#each data.records}}
-            <form action="/api/quiz/{{quizId}}/question" method="post" class="question"id="{{@index}}">
+            <form action="/api/quiz/{{quizId}}/question" method="post" class="question" id="{{@index}}">
                 {{#if this.primaryimageurl}}
+                {{#if this.people}}
                     <legend>Question</legend>
                     <div class="form-group">
                         <label for="question-ask">Question</label>
@@ -33,14 +34,15 @@
                         <label for="question-incorrect">Incorrect</label>
                         <input type="text" name="incorrect" class="form-control" placeholder="Not the correct answer.">
                     </div>
-                    <div class="form-group" id="append-button">
+                    <div id="append-button">
                         <button type="button" class="btn btn-primary">Add</button>
                     </div>
+                {{/if}}
                 {{/if}}
             </form>
         {{/each}}
         <div class='text-incorrect'>
-            <button type="submit" class="btn btn-danger">Create Post</button>
+            <button type="button" class="btn btn-danger">Create Post</button>
         </div>
     </div>
    
@@ -50,10 +52,11 @@
 <script type="text/javascript">
     $(document).ready(function() {
         let questions = [];
-        $("append-button").click(() => {
-            console.log("helooooooooo")
-            console.log( $( this ).serializeArray() );
-            event.preventDefault();
+        $("#append-button").click(() => {
+            console.log('hello')
+            questions.push($("#form-group"))
+            console.log($("#form-group"))
+            // console.log( $( this ).serializeArray() );
             console.log(questions)
         });
     });
