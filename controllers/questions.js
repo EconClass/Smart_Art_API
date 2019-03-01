@@ -31,12 +31,14 @@ module.exports = (app) => {
     });
     //
     app.get('/quiz/:id/question/new', (req, res) => {
-        Quiz.findOne( { _id: req.params.id } )
-        .then( quiz => {
+        const qid = req.params.id;
+        console.log(qid)
+        Quiz.findOne( { _id: qid } )
+        .then( () => {
             restler.get("https://api.harvardartmuseums.org/object", {
                 query: {
                     apikey: process.env.KEY,
-                    period: "Romanticism",
+                    period: "Modern",
                     sort: "random",
                     hasimage: 1
                 }
@@ -44,7 +46,7 @@ module.exports = (app) => {
             .on("complete", function(data, response) {
                 res.render("question.hbs", {
                     data: data,
-                    id: req.params.id
+                    quizId: qid
                     // artist: data.records.people[0]
                 });
             });
