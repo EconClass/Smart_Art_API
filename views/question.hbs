@@ -1,24 +1,15 @@
 <div class="row"></div>
     <div class="col-sm-4 col-sm-offset-4">
-        {{#each data.records}}
+        {{#each data}}
             <form action="/api/quiz/{{quizId}}/question" method="post" class="question" id="{{@index}}">
-                {{#if this.primaryimageurl}}
-                {{#if this.people}}
+                {{#if this.image}}
                     <legend>Question</legend>
-                    <div class="form-group">
-                        <label for="question-ask">Question</label>
-                        <input type="text" name="question-ask" class="form-control" id="question-ask" placeholder="Name the Artist.">
+                    <div>
+                        <img src={{this.image}} alt="..." class="img-thumbnail">
                     </div>
+                        
 
-                    <div class="form-group">
-                        <img src={{this.primaryimageurl}} alt="..." class="img-thumbnail">
-                        <input type="hidden" name="imgurl" class="form-control" id="question-img" value={{this.primaryimageurl}}>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="question-correct">Correct</label>
-                        <input type="text" name="correct" class="form-control" id="question-correct" placeholder={{this.people.0.name}}>
-                    </div>
+                    <label for="question-correct">{{{this.correct}}}</label>
 
                     <div class="form-group">
                         <label for="question-incorrect">Incorrect</label>
@@ -34,15 +25,14 @@
                         <label for="question-incorrect">Incorrect</label>
                         <input type="text" name="incorrect" class="form-control" placeholder="Not the correct answer.">
                     </div>
-                    <div id="append-button">
-                        <button type="button" class="btn btn-primary">Add</button>
+                    <div>
+                        <button id="append-button" type="button" class="btn btn-primary">Add</button>
                     </div>
-                {{/if}}
                 {{/if}}
             </form>
         {{/each}}
         <div class='text-incorrect'>
-            <button type="button" class="btn btn-danger">Create Post</button>
+            <button type="button" class="btn btn-danger">Create Quiz</button>
         </div>
     </div>
    

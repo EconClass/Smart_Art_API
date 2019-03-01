@@ -29,10 +29,9 @@ module.exports = (app) => {
             res.send(question);
         });
     });
-    //
+
     app.get('/quiz/:id/question/new', (req, res) => {
         const qid = req.params.id;
-        console.log(qid)
         Quiz.findOne( { _id: qid } )
         .then( () => {
             restler.get("https://api.harvardartmuseums.org/object", {
@@ -44,10 +43,24 @@ module.exports = (app) => {
                 }
             })
             .on("complete", function(data, response) {
+                let qArray = []
+                for( i = 0; i < data.records.length; i++ ){
+                    let current = data.records[i]
+                    if(current.people != undefined){
+                        console.log(current.people[current.people.length - 1].name)
+                        let q = new Question({
+                            question: "Name the artist of the piece.",
+                            image: current.primaryimageurl,
+                            correct: current.people[current.people.length - 1].name
+                        });
+                        // console.log(q)
+                        qArray.push(q);
+                    };
+                };
+        
                 res.render("question.hbs", {
-                    data: data,
+                    data: qArray,
                     quizId: qid
-                    // artist: data.records.people[0]
                 });
             });
         });
