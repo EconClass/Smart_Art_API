@@ -14,9 +14,9 @@ module.exports = (app) => {
         Quiz.findOne( { _id: req.params.quizId} )
         .exec( ( err, quiz) => {
             console.log(quiz)
-            let question = new Question(req.body);
-            quiz.questions.unshift(question);
-            quiz.save( ask => {
+            let questionsA = req.body;
+            quiz.questions = questionsA;
+            quiz.save( () => {
                 res.redirect(`/api/quiz/${req.params.quizId}`)
             });
         });
@@ -30,6 +30,7 @@ module.exports = (app) => {
         });
     });
 
+    // Add incorrect responses
     app.get('/quiz/:id/question/new', (req, res) => {
         const qid = req.params.id;
         Quiz.findOne( { _id: qid } )
@@ -37,7 +38,7 @@ module.exports = (app) => {
             restler.get("https://api.harvardartmuseums.org/object", {
                 query: {
                     apikey: process.env.KEY,
-                    period: "Modern",
+                    century: "19th century",
                     sort: "random",
                     hasimage: 1
                 }
@@ -46,8 +47,7 @@ module.exports = (app) => {
                 let qArray = []
                 for( i = 0; i < data.records.length; i++ ){
                     let current = data.records[i]
-                    if(current.people != undefined){
-                        console.log(current.people[current.people.length - 1].name)
+                    if(current.people != undefined && current.people[current.people.length - 1].name != "Unidentified Artist" && current.people[current.people.length - 1].name != "Unknown Artist"){
                         let q = new Question({
                             question: "Name the artist of the piece.",
                             image: current.primaryimageurl,
@@ -57,7 +57,6 @@ module.exports = (app) => {
                         qArray.push(q);
                     };
                 };
-        
                 res.render("question.hbs", {
                     data: qArray,
                     quizId: qid
@@ -65,7 +64,42 @@ module.exports = (app) => {
             });
         });
     });
-    
+
+    // Generate base questions
+    app.post('/api/quiz/:id/generate', (req, res) => {
+        console.log("HELLLOOOOO");
+        console.log(req.body)
+        const qid = req.params.id;
+        Quiz.findOne( { _id: qid } )
+        .exec( function (err, quiz) {
+            restler.get("https://api.harvardartmuseums.org/object", {
+                query: {
+                    apikey: process.env.KEY,
+                    century: "19th century",
+                    sort: "random",
+                    hasimage: 1
+                }
+            })
+            .on("complete", function(data, response) {
+                let qArray = []
+                for( i = 0; i < data.records.length; i++ ){
+                    let current = data.records[i]
+                    if(current.people != undefined && current.people[current.people.length - 1].name != "Unidentified Artist"){
+                        let q = new Question({
+                            question: "Name the artist of the piece.",
+                            image: current.primaryimageurl,
+                            correct: current.people[current.people.length - 1].name
+                        });
+                        qArray.push(q);
+                    };
+                };
+                quiz.questions = qArray
+                quiz.save()
+                res.redirect(`/api/quiz/${qid}`)
+            });
+        });
+    });
+
     // UPDATE
     app.put('/api/question/:id', (req, res) => {
 
