@@ -47,14 +47,16 @@ module.exports = (app) => {
                 let qArray = []
                 for( i = 0; i < data.records.length; i++ ){
                     let current = data.records[i]
-                    if(current.people != undefined && current.people[current.people.length - 1].name != "Unidentified Artist" && current.people[current.people.length - 1].name != "Unknown Artist"){
-                        let q = new Question({
-                            question: "Name the artist of the piece.",
-                            image: current.primaryimageurl,
-                            correct: current.people[current.people.length - 1].name
-                        });
-                        // console.log(q)
-                        qArray.push(q);
+                    if(current.primaryimageurl){
+                        if(current.people != undefined && current.people[current.people.length - 1].name != "Unidentified Artist" && current.people[current.people.length - 1].name != "Unknown Artist"){
+                            let q = new Question({
+                                question: "Name the artist of the piece.",
+                                image: current.primaryimageurl,
+                                correct: current.people[current.people.length - 1].name
+                            });
+                            // console.log(q)
+                            qArray.push(q);
+                        };
                     };
                 };
                 res.render("question.hbs", {
@@ -67,8 +69,6 @@ module.exports = (app) => {
 
     // Generate base questions
     app.post('/api/quiz/:id/generate', (req, res) => {
-        console.log("HELLLOOOOO");
-        console.log(req.body)
         const qid = req.params.id;
         Quiz.findOne( { _id: qid } )
         .exec( function (err, quiz) {
@@ -84,13 +84,16 @@ module.exports = (app) => {
                 let qArray = []
                 for( i = 0; i < data.records.length; i++ ){
                     let current = data.records[i]
-                    if(current.people != undefined && current.people[current.people.length - 1].name != "Unidentified Artist"){
-                        let q = new Question({
-                            question: "Name the artist of the piece.",
-                            image: current.primaryimageurl,
-                            correct: current.people[current.people.length - 1].name
-                        });
-                        qArray.push(q);
+                    console.log(current.primaryimageurl)
+                    if (current.primaryimageurl != "") {
+                        if(current.people != undefined && current.people[current.people.length - 1].name != "Unidentified Artist"){
+                            let q = new Question({
+                                question: "Name the artist of the piece.",
+                                image: current.primaryimageurl,
+                                correct: current.people[current.people.length - 1].name
+                            });
+                            qArray.push(q);
+                        };
                     };
                 };
                 quiz.questions = qArray

@@ -1,7 +1,7 @@
 <div class="row"></div>
     <div class="col-sm-4 col-sm-offset-4">
         {{#each data}}
-        <form action="/api/quiz/{{quizId}}/question" method="post" class="question" id="{{@index}}">
+        <form name="question" action="/api/quiz/{{quizId}}/question" method="post" class="question" id="{{@index}}">
             <legend>Question</legend>
             <div>
                 <img src={{this.image}} alt="..." class="img-thumbnail">
@@ -11,17 +11,17 @@
 
             <div class="form-group">
                 <label for="question-choices">Incorrect</label>
-                <input id="{{@index}}-1" type="text" name="choices" class="form-control" placeholder="Not the correct answer.">
+                <input id="input-0" type="text" name="choices" class="form-control" placeholder="Not the correct answer.">
             </div>
 
             <div class="form-group">
                 <label for="question-choices">Wrong</label>
-                <input id="{{@index}}-2" type="text" name="choices" class="form-control" placeholder="Not the correct answer.">
+                <input id="input-1" type="text" name="choices" class="form-control" placeholder="Not the correct answer.">
             </div>
 
             <div class="form-group">
                 <label for="question-choices">Not It</label>
-                <input id="{{@index}}-3" type="text" name="choices" class="form-control" placeholder="Not the correct answer.">
+                <input id="input-2" type="text" name="choices" class="form-control" placeholder="Not the correct answer.">
             </div>  
         </form>
         {{/each}}
@@ -35,12 +35,34 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(() => {
-        console.log($('.question').length)
+        // console.log("hello????")
+        // console.log( document.forms.question)
         let wrong = [];
-        for( i = 0; i < $('.question').length - 1; i++){
+        
+        // elements is an Object of forms
+        
+        for( i = 0; i < document.forms.length; i++){
+            let elementsObject = document.getElementById(i).elements
+            console.log('Elements.choices', elementsObject)
+            // This loop iterates through all elements in the form
+            // $("input").each( (e) => {
+                // $(this).val() //do something with
+                // console.log('THIS', this)
+            // });
+            // for (let i = 0, element; element = elements[i++];) {
+                // console.log("element.value", element.value)
+            // };
+
+            // let elements = document.forms.question.getElementsByTagName("input")
+            // console.log('elements[i2].value', elements[0].value)
+            // for( let i2 = 0; i2 < elements.length; i2++ ) {
+                // console.log(elements[i2].value)
+                // console.log(elements.getElementById("input-" + i2))
+            // }
             document.getElementById(i).addEventListener('submit', (e) => {
                 e.preventDefault()
             });
         };
     });
+    // [...value]
 </script>
