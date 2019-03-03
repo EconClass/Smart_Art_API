@@ -37,8 +37,6 @@ module.exports = (app) => {
         .then((quiz) => {
             console.log("QUIZ===================", quiz.questions)
             quiz.questions = inputArray;
-            // console.log(quiz.questions)
-            // console.log(quiz.questions[0].choices)
             quiz.save( () => {
                 res.redirect(`/api/quiz/${req.params.quizId}`)
             });
