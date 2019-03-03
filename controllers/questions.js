@@ -35,7 +35,6 @@ module.exports = (app) => {
         // console.log(inputArray)
         Quiz.findOne({ _id: req.params.quizId })
         .then((quiz) => {
-            console.log("QUIZ===================", quiz.questions)
             quiz.questions = inputArray;
             quiz.save( () => {
                 res.redirect(`/api/quiz/${req.params.quizId}`)
@@ -80,7 +79,7 @@ module.exports = (app) => {
                         };
                     };
                 };
-                res.render("question.hbs", {
+                res.render("quiz-create-questions.hbs", {
                     data: qArray,
                     quizId: qid
                 });
