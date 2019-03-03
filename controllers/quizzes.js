@@ -23,6 +23,17 @@ module.exports = (app) => {
         });
     });
 
+    // Return All quizzes
+    app.get('/api/all', (req, res) => {
+        Quiz.find()
+        .then( quiz => {
+            if (req.header('content-type') == 'application/json'){
+                return res.json(quiz)
+            }
+            res.send(quiz);
+        });
+    });
+
     // UPDATE
     app.put('/api/quiz/:id', (req, res) => {
         Quiz.findOneAndUpdate( { _id: req.params.id }, req.body )
