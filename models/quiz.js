@@ -7,7 +7,6 @@ const QuizSchema = new Schema({
     updatedAt: { type: Date },
     title: { type: String, required: true },
     questions: [Question.schema],
-    category: [String]
 });
 
 QuizSchema.pre("save", function(next) {

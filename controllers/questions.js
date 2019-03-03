@@ -10,12 +10,35 @@ module.exports = (app) => {
 
     // CREATE Question
     app.post('/api/quiz/:quizId/question', (req, res) => {
-        console.log(req.body)
-        Quiz.findOne( { _id: req.params.quizId} )
-        .exec( ( err, quiz) => {
-            console.log(quiz)
-            let questionsA = req.body;
-            quiz.questions = questionsA;
+        const inputArray = []
+        let done = false 
+        let index = 0
+        while (!done) {
+            const wrong = req.body['wrong-'+index]
+            const incorrect = req.body['incorrect-'+index]
+            const notanswer = req.body['notanswer-'+index]
+            if (wrong === undefined) {
+                done = true
+            } else {
+                // console.log(req.body.question)
+                let q = new Question({
+                    question: req.body.question[index],
+                    image: req.body.image[index],
+                    correct: req.body.correct[index],
+                    choices:[wrong, incorrect, notanswer]
+                });
+                // console.log(q)
+                inputArray.push(q) // Question object
+                index++
+            }
+        }
+        // console.log(inputArray)
+        Quiz.findOne({ _id: req.params.quizId })
+        .then((quiz) => {
+            console.log("QUIZ===================", quiz.questions)
+            quiz.questions = inputArray;
+            // console.log(quiz.questions)
+            // console.log(quiz.questions[0].choices)
             quiz.save( () => {
                 res.redirect(`/api/quiz/${req.params.quizId}`)
             });
@@ -49,11 +72,11 @@ module.exports = (app) => {
                     let current = data.records[i]
                     if(current.primaryimageurl){
                         if(current.people != undefined && current.people[current.people.length - 1].name != "Unidentified Artist" && current.people[current.people.length - 1].name != "Unknown Artist"){
-                            let q = new Question({
+                            let q = {
                                 question: "Name the artist of the piece.",
                                 image: current.primaryimageurl,
                                 correct: current.people[current.people.length - 1].name
-                            });
+                            };
                             // console.log(q)
                             qArray.push(q);
                         };

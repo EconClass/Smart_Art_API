@@ -5,6 +5,7 @@ Quiz = require('../models/quiz.js');
 module.exports = (app) => {
     // CREATE
     app.post('/api/quiz/', (req, res) => {
+        console.log("BODY", req.body);
         let quiz = new Quiz(req.body)
         quiz.save(() => {
             return res.redirect(`/`);
