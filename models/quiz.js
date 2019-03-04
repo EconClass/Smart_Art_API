@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Question = require('./question.js');
 const Schema = mongoose.Schema;
 
 const QuizSchema = new Schema({
@@ -7,7 +6,7 @@ const QuizSchema = new Schema({
     updatedAt: { type: Date },
     questions: [{ type: Object }],
     title: { type: String, required: true },
-    category: [String]
+    questions: [Object],
 });
 
 QuizSchema.pre("save", function(next) {

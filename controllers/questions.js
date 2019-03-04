@@ -1,12 +1,20 @@
-const express = require('express'),
-app = express();
-Question = require('../models/question.js');
-Quiz = require('../models/quiz.js');
+const Question = require('../models/question.js');
+const Quiz = require('../models/quiz.js');
+const restler = require("restler");
 
 module.exports = (app) => {
     // HOME
     app.get('/', (req, res) => {
-      res.render('homepage.handlebars')
+      const sendMe = { client_id: process.env.client_id, client_secret: process.env.client_secret }
+      console.log(sendMe)
+      request
+        .post(apiUrl)
+        .send(sendMe)
+        .end(function(result) {
+          console.log(result)
+          xappToken = result.body.token;
+          res.send(xappToken)
+        });
     });
 
     // New Question form
@@ -16,14 +24,35 @@ module.exports = (app) => {
 
     // CREATE Question
     app.post('/api/quiz/:quizId/question', (req, res) => {
-        Quiz.findOne( { _id: req.params.quizId} )
-        .exec( ( err, quiz) => {
-            console.log(quiz)
-            let question = new Question(req.body);
-            quiz.questions.unshift(question);
-            quiz.save( ask => {
+        const inputArray = []
+        let done = false
+        let index = 0
+        while (!done) {
+            const wrong = req.body['wrong-'+index]
+            const incorrect = req.body['incorrect-'+index]
+            const notanswer = req.body['notanswer-'+index]
+            if (wrong === undefined) {
+                done = true
+            } else {
+                // console.log(req.body.question)
+                let q = new Question({
+                    question: req.body.question[index],
+                    image: req.body.image[index],
+                    correct: req.body.correct[index],
+                    choices:[wrong, incorrect, notanswer]
+                });
+                // console.log(q)
+                inputArray.push(q) // Question object
+                index++
+            }
+        }
+        // console.log(inputArray)
+        Quiz.findOne({ _id: req.params.quizId })
+        .then((quiz) => {
+            quiz.questions = inputArray;
+            quiz.save( () => {
                 res.redirect(`/api/quiz/${req.params.quizId}`)
-            })
+            });
         });
     });
 
@@ -40,6 +69,79 @@ module.exports = (app) => {
         // .then( question => {
         //     res.render('show-question');
         // });
+    });
+
+    // Add incorrect responses
+    app.get('/quiz/:id/question/new', (req, res) => {
+        const qid = req.params.id;
+        Quiz.findOne( { _id: qid } )
+        .then( () => {
+            restler.get("https://api.harvardartmuseums.org/object", {
+                query: {
+                    apikey: process.env.KEY,
+                    century: "19th century",
+                    sort: "random",
+                    hasimage: 1
+                }
+            })
+            .on("complete", function(data, response) {
+                let qArray = []
+                for( i = 0; i < data.records.length; i++ ){
+                    let current = data.records[i]
+                    if(current.primaryimageurl){
+                        if(current.people != undefined && current.people[current.people.length - 1].name != "Unidentified Artist" && current.people[current.people.length - 1].name != "Unknown Artist"){
+                            let q = {
+                                question: "Name the artist of the piece.",
+                                image: current.primaryimageurl,
+                                correct: current.people[current.people.length - 1].name
+                            };
+                            // console.log(q)
+                            qArray.push(q);
+                        };
+                    };
+                };
+                res.render("quiz-create-questions.hbs", {
+                    data: qArray,
+                    quizId: qid
+                });
+            });
+        });
+    });
+
+    // Generate base questions
+    app.post('/api/quiz/:id/generate', (req, res) => {
+        const qid = req.params.id;
+        Quiz.findOne( { _id: qid } )
+        .exec( function (err, quiz) {
+            restler.get("https://api.harvardartmuseums.org/object", {
+                query: {
+                    apikey: process.env.KEY,
+                    century: "19th century",
+                    sort: "random",
+                    hasimage: 1
+                }
+            })
+            .on("complete", function(data, response) {
+                let qArray = []
+                for( i = 0; i < data.records.length; i++ ){
+                    let current = data.records[i]
+                    console.log(current.primaryimageurl)
+                    if (current.primaryimageurl != "") {
+                        if(current.people != undefined && current.people[current.people.length - 1].name != "Unidentified Artist"){
+                            let q = new Question({
+                                question: "Name the artist of the piece.",
+                                image: current.primaryimageurl,
+                                correct: current.people[current.people.length - 1].name
+                            });
+                            qArray.push(q);
+                        };
+                    };
+                };
+                quiz.questions = qArray
+                quiz.save()
+                res.redirect(`/api/quiz/${qid}`)
+            });
+        });
     });
 
     // UPDATE
@@ -63,11 +165,4 @@ module.exports = (app) => {
             });
         });
     });
-    // DESTROY
-    // app.delete('/api/question/:id/delete', (req, res) => {
-    //     Question.findOneAndRemove({ _id: req.params.id })
-    //     .exec( (err, question) => {
-    //         return res.redirect('/');
-    //     });
-    // });
 }
