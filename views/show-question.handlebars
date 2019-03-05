@@ -14,15 +14,10 @@
     <div class="hero-text-conatiner">
       <div id="additional-info" class="hero-text">
         <h2>Did you know?</h2>
-        <p>Vincent Willem van Gogh
-          30 March 1853 – 29 July 1890) was a Dutch
-          Post-Impressionist painter who is among
-          the most famous and influential figures
-          in the history of Western art. In just
-          over a decade he created about 2,100 artworks,
-          including around 860 oil paintings, most of them
-          in the last two years of his life.</p>
-        <p>Learn more:<a href="https://en.wikipedia.org/wiki/Vincent_van_Gogh" target="_blank">here</a></p>
+        <p>William Notman (8 March 1826 – 25 November 1891) was a Scottish-Canadian
+          photographer and businessman. The Notman House in Montreal was his home from
+          1876 until his death in 1891 and has since been named after him.</p>
+        <p>Learn more: <a href="https://en.wikipedia.org/wiki/William_Notman" target="_blank">here</a></p>
 
       </div>
     </div>
@@ -34,9 +29,9 @@
     </div>
     <div class="question-answers">
       <button id="correct" class="answer" onClick="showCorrectAnswer()">{{question.correct}}</button>
-      <button class="answer" onClick="showAnswers()">Wrong 1</button>
-      <button class="answer" onClick="showAnswers()">Wrong 2</button>
-      <button class="answer" onClick="showAnswers()">Wrong 3</button>
+      <button class="answer" onClick="showAnswers()">{{question.choices.[0]}}</button>
+      <button class="answer" onClick="showAnswers()">{{question.choices.[1]}}</button>
+      <button class="answer" onClick="showAnswers()">{{question.choices.[2]}}</button>
     </div>
     <div class="question-next">
       <div id="question-next-id" class="question-next-text">

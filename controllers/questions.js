@@ -50,6 +50,13 @@ module.exports = (app) => {
         });
     });
 
+    app.get('/random', async (req, res) => {
+      let quizes = await Quiz.find()
+      let randomQuiz = _.sample(quizes);
+
+      res.redirect(`/api/quiz/${randomQuiz._id}/question/${randomQuiz.questions[0]._id}`)
+    })
+
     // READ
     app.get('/api/quiz/:quizId/question/:id', async (req, res) => {
       Quiz.findById(req.params.quizId).then( async quiz => {
@@ -57,9 +64,11 @@ module.exports = (app) => {
         await quiz.questions.forEach(q => {
           if (q._id == req.params.id) {
             const question = q
-            console.log(question);
+            // console.log(question);
             let questionIndex = quiz.questions.indexOf(question);
             let nextQuestion = quiz.questions[questionIndex + 1];
+            console.log(questionIndex);
+            console.log(quiz.questions.length) //[0])
             return res.render('show-question.handlebars', { quiz, question, nextQuestion })
           }
         });

@@ -14,6 +14,7 @@ function showAnswers() {
   var answers = document.getElementsByClassName("answer")
   for (let i = 0; i < answers.length; i++) {
       answers[i].classList.add('revealed');
+      answers[i].disabled  = true;
   }
 
   // answers.classList.add("clicked")
