@@ -10,11 +10,11 @@ let i = 0;
 function myTimer() {
   // var d = new Date();
   if (i < arrayOfImages.length) {
-    document.getElementById('image-span').className = arrayOfImages[i];
+    document.getElementById('background-image').className = arrayOfImages[i];
     i += 1;
   } else {
     i = 0;
   }
 }
 
-setInterval(myTimer, 1250);
+setInterval(myTimer, 5000);

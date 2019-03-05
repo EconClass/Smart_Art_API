@@ -2,20 +2,13 @@ const Question = require('../models/question.js');
 const Quiz = require('../models/quiz.js');
 const restler = require("restler");
 
+const _ = require('lodash')
+
 module.exports = (app) => {
     // HOME
     app.get('/', (req, res) => {
-      const sendMe = { client_id: process.env.client_id, client_secret: process.env.client_secret }
-      console.log(sendMe)
-      request
-        .post(apiUrl)
-        .send(sendMe)
-        .end(function(result) {
-          console.log(result)
-          xappToken = result.body.token;
-          res.send(xappToken)
-        });
-    });
+      res.send("Hello")
+    })
 
     // New Question form
     app.get('/quiz/:quizId/question/new', (req, res) => {
@@ -57,18 +50,25 @@ module.exports = (app) => {
     });
 
     // READ
-    app.get('/api/quiz/:quizId/question/:id', (req, res) => {
-        Quiz.findOne( { _id: req.params.quizId} )
-        .then( quiz => {
-          Question.findOne( { _id: req.params.id} )
-          .then( question => {
-            res.render('show-question.handlebars')
-          })
-        })
-        // Question.findOne( { _id: req.params.id } )
-        // .then( question => {
-        //     res.render('show-question');
-        // });
+    app.get('/api/quiz/:quizId/question/:id', async (req, res) => {
+      console.log('question-show');
+      Quiz.findById(req.params.quizId).then( async quiz => {
+        // let question = _.find(quiz.questions, (q) => { return q._id = req.params.id });
+        await quiz.questions.forEach(q => {
+          if (q._id == req.params.id) {
+            const question = q
+            console.log(question);
+            let questionIndex = quiz.questions.indexOf(question);
+            let nextQuestion = quiz.questions[questionIndex + 1];
+            return res.render('show-question.handlebars', { quiz, question, nextQuestion })
+          }
+        });
+
+        // let question = quiz.questions.id(req.params.id);
+
+
+
+      });
     });
 
     // Add incorrect responses
@@ -100,7 +100,7 @@ module.exports = (app) => {
                         };
                     };
                 };
-                res.render("quiz-create-questions.hbs", {
+                res.render("show-quiz.handlebars", {
                     data: qArray,
                     quizId: qid
                 });

@@ -12,26 +12,26 @@ const path = require('path');
 // const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-const exphbs = require('express-handlebars')
+// const exphbs = require('express-handlebars')
 const port = process.env.PORT || 3000;
 const mongoose = require('mongoose');
 const exphbs = require('express-handlebars').create({
     layoutsDir: path.join(__dirname, "views/layouts"),
     partialsDir: path.join(__dirname, "views/partials"),
     defaultLayout: 'main',
-    extname: 'hbs'
+    extname: 'handlebars'
 });
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/smart-art', { useNewUrlParser: true });
 
 
-app.engine('hbs', exphbs.engine);
-app.set('view engine', 'hbs');
+app.engine('handlebars', exphbs.engine);
+app.set('view engine', 'handlebars');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.engine("handlebars", exphbs({defaultLayout: "main"}))
-app.set("view engine", "handlebars")
+// app.engine("handlebars", exphbs({defaultLayout: "main"}))
+// app.set("view engine", "handlebars")
 app.use(express.static('public'))
 // app.use(expressValidator()); // Add after body parser initialization!
 // app.use(expressValidator());

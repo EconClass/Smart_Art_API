@@ -1,5 +1,9 @@
 <!-- Show one question -->
-
+<h1>{{quiz}}</h1>
+<h2>{{question.choices}}</h2>
+<p>
+   {{nextQuestion._id}}
+</p>
 <div class="screen">
   <div class="hero-section">
     <div class="hero-image-container">
@@ -12,6 +16,7 @@
         <p>To begin...</p>
       </div>
     </div>
+    <a href="/api/quiz/{{quiz._id}}/question/{{nextQuestion._id}}">Next Question</a>
   </div>
   <div class="question-section">
     <div class="question-image">

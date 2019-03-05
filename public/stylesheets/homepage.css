@@ -1,0 +1,43 @@
+.home-window {
+  height: 100vh;
+  width: 100vw;
+}
+
+.picasso {
+  background-image: url('assets/femmes.jpg');
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  filter: grayscale(90%);
+}
+
+
+
+.van-gogh {
+  background-image: url('assets/starry.jpg');
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  filter: grayscale(90%);
+}
+
+
+.da-vinci {
+  background-image: url('assets/baby.jpg');
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  filter: grayscale(90%);
+}
+
+.welcome-text {
+  color: white;
+  text-align: center;
+  padding-top: 150px;
+}
