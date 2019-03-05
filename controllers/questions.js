@@ -7,7 +7,8 @@ const _ = require('lodash')
 module.exports = (app) => {
     // HOME
     app.get('/', (req, res) => {
-      res.send("Hello")
+      // console.log("hitting route")
+      res.render('homepage.handlebars')
     })
 
     // New Question form
@@ -51,7 +52,6 @@ module.exports = (app) => {
 
     // READ
     app.get('/api/quiz/:quizId/question/:id', async (req, res) => {
-      console.log('question-show');
       Quiz.findById(req.params.quizId).then( async quiz => {
         // let question = _.find(quiz.questions, (q) => { return q._id = req.params.id });
         await quiz.questions.forEach(q => {
@@ -63,11 +63,7 @@ module.exports = (app) => {
             return res.render('show-question.handlebars', { quiz, question, nextQuestion })
           }
         });
-
         // let question = quiz.questions.id(req.params.id);
-
-
-
       });
     });
 

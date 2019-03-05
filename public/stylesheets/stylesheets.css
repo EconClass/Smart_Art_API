@@ -2,7 +2,65 @@
 body {
   font-family: cursive;
 }
+
+a {
+  text-decoration: none;
+  color: white;
+}
 /* End Global CSS */
+
+
+.home-window {
+  height: 100vh;
+  width: 100vw;
+  /* z-index: 0; */
+}
+
+.picasso {
+  background-image: url('../assets/femmes.jpg');
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  filter: grayscale(90%);
+}
+
+
+
+.van-gogh {
+  background-image: url('../assets/starry.jpg');
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  filter: grayscale(90%);
+}
+
+
+.da-vinci {
+  background-image: url('../assets/baby.jpg');
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  filter: grayscale(90%);
+}
+
+.welcome-text {
+  color: white;
+  text-align: center;
+  padding-top: 150px;
+  height: 40vh;
+  width: 25vw;
+  background-color: #171818;
+  margin: auto;
+  /* margin-top: 300px; */
+  /* z-index: 1; */
+}
+
 
 /* Begin Navbar Section */
 .navbar ul {
@@ -95,6 +153,8 @@ body {
   display: block;
   margin: auto;
   padding-top: 20px;
+  height: 50vh;
+  width: auto;
 }
 /* End Question Image Section */
 
@@ -106,64 +166,47 @@ body {
   margin: auto;
 }
 
-.question-answers .button {
-  background-color: #4CAF50;
+.question-answers .answer {
+  background-color: #a0cbd8;
   border: none;
   color: white;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
-  /* display: inline-block; */
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
 }
+
+.question-answers .answer.revealed#correct{
+  background-color: green;
+}
+.question-answers .answer.revealed {
+  background-color: red;
+}
 /* End Question Answers Section */
 
-body {
-  margin: 0px;
-}
-
-.home-window {
-  height: 100vh;
-  width: 100vw;
-}
-
-.picasso {
-  background-image: url('femmes.jpg');
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100%;
-  width: 100%;
-  filter: grayscale(90%);
-}
-
-
-
-.van-gogh {
-  background-image: url('starry.jpg');
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100%;
-  width: 100%;
-  filter: grayscale(90%);
-}
-
-
-.da-vinci {
-  background-image: url('baby.jpg');
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100%;
-  width: 100%;
-  filter: grayscale(90%);
-}
-
-.welcome-text {
+.question-next-text {
   color: white;
+  background: #a0cbd8;
+  width: 20vw;
+  height: 10vh;
+  margin: auto;
   text-align: center;
-  padding-top: 150px;
+  padding-top: 50px;
+  display: none;
+}
+
+.hero-text {
+  display: none;
+}
+
+.score-container {
+  height: 40vh;
+}
+
+.score {
+  text-align: center;
+  margin-top: 20vh;
+  font-size: 4rem;
 }

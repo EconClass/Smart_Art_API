@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const arrayOfImages = [
   'picasso',
   'van-gogh',
