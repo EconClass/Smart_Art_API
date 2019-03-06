@@ -1,0 +1,69 @@
+<!-- Show one question -->
+<!-- <h1>{{quiz}}</h1>
+<h2>{{question.image}}</h2>
+<p>
+   {{nextQuestion._id}}
+</p> -->
+
+
+<div class="screen">
+  <div class="hero-section">
+    <div class="score-container">
+      <h2 class="score">Score: <span id="total-score"></span></h2>
+    </div>
+    <div class="hero-text-conatiner">
+      <!-- <div id="additional-info" class="hero-text">
+        <h2>Did you know?</h2>
+        <p>William Notman (8 March 1826 – 25 November 1891) was a Scottish-Canadian
+          photographer and businessman. The Notman House in Montreal was his home from
+          1876 until his death in 1891 and has since been named after him.</p>
+        <p>Learn more: <a href="https://en.wikipedia.org/wiki/William_Notman" target="_blank">here</a></p>
+
+      </div> -->
+    </div>
+  </div>
+
+  <div class="question-section">
+    <div class="question-image">
+      <img src={{question.image}} />
+    </div>
+    <div class="question-answers">
+      <button id="correct" class="answer" onClick="showCorrectAnswer()">{{question.correct}}</button>
+      <button class="answer" onClick="showAnswers()">{{question.choices.[0]}}</button>
+      <button class="answer" onClick="showAnswers()">{{question.choices.[1]}}</button>
+      <button class="answer" onClick="showAnswers()">{{question.choices.[2]}}</button>
+    </div>
+    <div class="question-next">
+      <div id="question-next-id" class="question-next-text">
+        <a href="/api/quiz/{{quiz._id}}/question/{{nextQuestion._id}}">Next Question</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="screen">
+  <div class="hero-section">
+    <div class="hero-image-container">
+      <img src="art_avatar_1.png" />
+    </div>
+    <div class="hero-text-conatiner">
+      <div class="hero-text">
+        <h1>Welcome to Smart Art!</h1>
+        <p>This is a game of memory and deduction, designed to help you become an art connoisseur!</p>
+        <p>To begin...</p>
+      </div>
+    </div>
+    <a href="/api/quiz/{{quiz._id}}/question/{{nextQuestion._id}}">Next Question</a>
+  </div>
+  <div class="question-section">
+    <div class="question-image">
+      <img src="starry.jpg" />
+    </div>
+    <div class="question-answers">
+      <button class="button">Vincent Van Gogh</button>
+      <button class="button">Pablo Picaso</button>
+      <button class="button">Andy Warhol</button>
+      <button class="button">Peter Max</button>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,245 @@
+:root {
+  --main-blue: #35477A;
+  --main-pink: #FE7281;
+  --main-red: #9d3223;
+  --main-grey: #2f3030;
+  --wrong-red: #FF0000;
+  --right-green: #11FF00;
+  --default-white: #FFFFFF;
+}
+
+/* Begin Global CSS */
+html,body {
+  height: 100vh;
+  width: 100vw;
+}
+
+body {
+  font-family: cursive;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+/* End Global CSS */
+
+
+.home-window {
+  height: 100vh;
+  width: 100vw;
+
+  /* z-index: 0; */
+}
+
+#background-image {
+  display: flex;
+}
+
+#try-quiz-btn {
+  padding: 0.5em 1em;
+  /* border: 1px solid white; */
+  border-radius: 5px;
+  background-color: var(--main-pink);
+}
+
+.picasso {
+  background-image: url('../assets/femmes.jpg');
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  /* filter: grayscale(90%); */
+}
+
+
+
+.van-gogh {
+  background-image: url('../assets/starry.jpg');
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  /* filter: grayscale(90%); */
+}
+
+
+.da-vinci {
+  background-image: url('../assets/baby.jpg');
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  /* filter: grayscale(90%); */
+}
+
+.welcome-text {
+  color: white;
+  text-align: center;
+  padding-top: 50px;
+  height: 40vh;
+  width: 25vw;
+  background-color: var(--main-grey);
+  margin: auto;
+  border-style: solid;
+  border-width: 10px;
+  /* margin-top: 300px; */
+  /* z-index: 1; */
+}
+
+.welcome-text h2 {
+  padding-top: 20px;
+}
+
+
+/* Begin Navbar Section */
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #171818;
+}
+
+.navbar li {
+  float: right;
+}
+
+.navbar li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar li a:hover:not(.active) {
+  background-color: var(--main-grey);
+}
+
+.navbar .active {
+  background-color: #4CAF50;
+}
+/* End Navbar Section */
+
+
+/* Begin Screen Secion */
+.screen {
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  display: flex;
+}
+/* End Screen Section */
+
+/* Begin Hero Section */
+.hero-section {
+  width: 30%;
+  height: 100%;
+  background-color: #EDF0F1;
+}
+/* End Hero Section */
+
+/* Begin Hero Image Section */
+.hero-image-container {
+  height: 40%;
+  /* background-color: green; */
+
+}
+
+.hero-image-container img {
+  height: 75%;
+  width: 45%;
+  display: block;
+  margin: auto;
+  padding-top: 20px;
+}
+/* End Hero Image Section */
+
+/* Begin Hero Text Section */
+.hero-text-container {
+  height: 60%;
+}
+
+.hero-text {
+  background-color: white;
+  margin: 20px;
+  border-style: ridge;
+}
+/* End Hero Text Section */
+
+
+/* Begin Question Section */
+.question-section {
+  width: 70vw;
+  height: 100%;
+  background-color: var(--main-grey);
+}
+/* End Question Section */
+
+
+/* Begin Question Image Section */
+.question-image img {
+  display: block;
+  margin: auto;
+  padding-top: 20px;
+  height: 50vh;
+  width: auto;
+}
+/* End Question Image Section */
+
+/* Begin Question Answers Section */
+.question-answers {
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 50px;
+  margin: auto;
+}
+
+.question-answers .answer {
+  background-color: var(--main-pink);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.question-answers .answer.revealed#correct{
+  background-color: var(--right-green);
+}
+.question-answers .answer.revealed {
+  background-color: var(--wrong-red);
+}
+/* End Question Answers Section */
+
+.question-next-text {
+  color: white;
+  background: var(--main-pink);
+  width: 20vw;
+  height: 4vh;
+  margin: auto;
+  text-align: center;
+  padding: 15px;
+  display: none;
+}
+
+.hero-text {
+  display: none;
+}
+
+.score-container {
+  height: 40vh;
+}
+
+.score {
+  text-align: center;
+  margin-top: 20vh;
+  font-size: 4rem;
+}

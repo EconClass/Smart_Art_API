@@ -1,0 +1,47 @@
+{{quiz._id}}
+{{#each quiz.questions}}
+<img src={{this.image}} />
+{{/each}}
+
+<!-- <h1> Hello there</h1>
+      <div class="col-sm-4 col-sm-offset-4">
+          <form class="question-form" name="questionsArray" action="/api/quiz/{{quizId}}/question" method="post" class="question">
+              {{#each data}}
+                  <legend>Question</legend>
+                  <div class="form-group">
+                      <img src={{this.image}} alt="..." class="img-thumbnail">
+                      <input type="hidden" name="image" value="{{this.image}}">
+                  </div>
+
+                  <div class="form-group">
+                      <label for="question">{{{this.question}}}</label>
+                      <input type="hidden" name="question" value="{{this.question}}">
+                  </div>
+
+                  <div class="form-group">
+                      <label for="question-correct">{{{this.correct}}}</label>
+                      <input type="hidden" name="correct" value="{{this.correct}}">
+                  </div>
+
+                  <div class="form-group">
+                      <label for="question-choices">Incorrect</label>
+                      <input id="incorrect-{{@index}}" type="text" name="incorrect-{{@index}}" class="form-control" placeholder="Not the correct answer.">
+                  </div>
+
+                  <div class="form-group">
+                      <label for="question-choices">Wrong</label>
+                      <input id="wrong-{{@index}}" type="text" name="wrong-{{@index}}" class="form-control" placeholder="Not the correct answer.">
+                  </div>
+
+                  <div class="form-group">
+                      <label for="question-choices">Not It</label>
+                      <input id="notanswer-{{@index}}" type="text" name="notanswer-{{@index}}" class="form-control" placeholder="Not the correct answer.">
+                  </div>
+              {{/each}}
+
+              <div class='form-group'>
+                  <button type="submit" class="btn btn-danger">Create Quiz</button>
+              </div>
+          </form>
+      </div>
+  </div> -->

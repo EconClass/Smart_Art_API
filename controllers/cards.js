@@ -14,7 +14,7 @@ module.exports = (app) => {
                 return res.redirect(`/api/deck/${req.params.id}`);
             });
         })
-        
+
     });
 
     // READ
@@ -35,7 +35,7 @@ module.exports = (app) => {
             res.redirect(`/api/card/${req.params.id}`);
         });
     });
-    
+
     // DESTROY
     app.delete('/api/deck/:id/card/:cardId/delete', (req, res) => {
         card.findOneAndRemove({ _id: req.params.id })

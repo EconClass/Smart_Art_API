@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-Card = require('./card.js');
+const Card = require('./card.js');
 
 const DeckSchema = new Schema({
     // createdAt: { type: Date },
@@ -19,5 +19,6 @@ const DeckSchema = new Schema({
 
 //     next();
 // });
+
 
 module.exports = mongoose.model("Deck", DeckSchema);

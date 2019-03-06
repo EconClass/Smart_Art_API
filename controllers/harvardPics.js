@@ -26,7 +26,8 @@ module.exports = (app) => {
             }
         })
         .on("complete", function(data, response) {
-            res.send(data);
+          console.log(response)
+            res.render('culture.handlebars');
         });
     });
 
@@ -68,6 +69,7 @@ module.exports = (app) => {
         });
     });
 
+
     // get all objects in db
     app.get('/api/all', (req, res) => {
         // returns a an array size 10 of objects at a time for all images in db
@@ -80,4 +82,5 @@ module.exports = (app) => {
             res.send(data);
         });
     });
+
 };

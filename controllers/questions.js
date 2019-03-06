@@ -2,16 +2,24 @@ const Question = require('../models/question.js');
 const Quiz = require('../models/quiz.js');
 const restler = require("restler");
 
+const _ = require('lodash')
+
 module.exports = (app) => {
     // HOME
     app.get('/', (req, res) => {
-      res.send('Hello there.')
-    });
+      // console.log("hitting route")
+      res.render('homepage.handlebars')
+    })
+
+    // New Question form
+    app.get('/quiz/:quizId/question/new', (req, res) => {
+      res.render('new-question.handlebars')
+    })
 
     // CREATE Question
     app.post('/api/quiz/:quizId/question', (req, res) => {
         const inputArray = []
-        let done = false 
+        let done = false
         let index = 0
         while (!done) {
             const wrong = req.body['wrong-'+index]
@@ -42,12 +50,30 @@ module.exports = (app) => {
         });
     });
 
+    app.get('/random', async (req, res) => {
+      let quizes = await Quiz.find()
+      let randomQuiz = _.sample(quizes);
+
+      res.redirect(`/api/quiz/${randomQuiz._id}/question/${randomQuiz.questions[0]._id}`)
+    })
+
     // READ
-    app.get('/api/question/:id', (req, res) => {
-        Question.findOne( { _id: req.params.id } )
-        .then( question => {
-            res.send(question);
+    app.get('/api/quiz/:quizId/question/:id', async (req, res) => {
+      Quiz.findById(req.params.quizId).then( async quiz => {
+        // let question = _.find(quiz.questions, (q) => { return q._id = req.params.id });
+        await quiz.questions.forEach(q => {
+          if (q._id == req.params.id) {
+            const question = q
+            // console.log(question);
+            let questionIndex = quiz.questions.indexOf(question);
+            let nextQuestion = quiz.questions[questionIndex + 1];
+            console.log(questionIndex);
+            console.log(quiz.questions.length) //[0])
+            return res.render('show-question.handlebars', { quiz, question, nextQuestion })
+          }
         });
+        // let question = quiz.questions.id(req.params.id);
+      });
     });
 
     // Add incorrect responses
@@ -79,8 +105,7 @@ module.exports = (app) => {
                         };
                     };
                 };
-                console.log(data)
-                res.render("quiz-create-questions.hbs", {
+                res.render("show-quiz.handlebars", {
                     data: qArray,
                     quizId: qid
                 });

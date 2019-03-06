@@ -6,17 +6,6 @@ const QuestionSchema = new Schema({
     image: String,
     correct: { type: String, required: true },
     choices: [{ type: String, required: true }],
-});
-
-QuestionSchema.pre("save", function(next) {
-    const now = new Date();
-    this.updatedAt = now;
-
-    if (!this.createdAt) {
-        this.createdAt = now;
-    }
-
-    next();
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model("Question", QuestionSchema);
