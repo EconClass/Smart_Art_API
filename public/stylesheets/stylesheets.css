@@ -1,11 +1,26 @@
+:root {
+  --main-blue: #35477A;
+  --main-pink: #FE7281;
+  --main-red: #9d3223;
+  --main-grey: #2f3030;
+  --wrong-red: #FF0000;
+  --right-green: #11FF00;
+  --default-white: #FFFFFF;
+}
+
 /* Begin Global CSS */
+html,body {
+  height: 100vh;
+  width: 100vw;
+}
+
 body {
   font-family: cursive;
 }
 
 a {
   text-decoration: none;
-  color: black;
+  color: white;
 }
 /* End Global CSS */
 
@@ -13,7 +28,19 @@ a {
 .home-window {
   height: 100vh;
   width: 100vw;
+
   /* z-index: 0; */
+}
+
+#background-image {
+  display: flex;
+}
+
+#try-quiz-btn {
+  padding: 0.5em 1em;
+  /* border: 1px solid white; */
+  border-radius: 5px;
+  background-color: var(--main-pink);
 }
 
 .picasso {
@@ -23,7 +50,7 @@ a {
   background-size: cover;
   height: 100%;
   width: 100%;
-  filter: grayscale(90%);
+  /* filter: grayscale(90%); */
 }
 
 
@@ -35,7 +62,7 @@ a {
   background-size: cover;
   height: 100%;
   width: 100%;
-  filter: grayscale(90%);
+  /* filter: grayscale(90%); */
 }
 
 
@@ -46,7 +73,7 @@ a {
   background-size: cover;
   height: 100%;
   width: 100%;
-  filter: grayscale(90%);
+  /* filter: grayscale(90%); */
 }
 
 .welcome-text {
@@ -55,7 +82,7 @@ a {
   padding-top: 50px;
   height: 40vh;
   width: 25vw;
-  background-color: #2f3030;
+  background-color: var(--main-grey);
   margin: auto;
   border-style: solid;
   border-width: 10px;
@@ -90,7 +117,7 @@ a {
 }
 
 .navbar li a:hover:not(.active) {
-  background-color: #DCDCDC;
+  background-color: var(--main-grey);
 }
 
 .navbar .active {
@@ -149,7 +176,7 @@ a {
 .question-section {
   width: 70vw;
   height: 100%;
-  background-color: #2f3030;
+  background-color: var(--main-grey);
 }
 /* End Question Section */
 
@@ -173,7 +200,7 @@ a {
 }
 
 .question-answers .answer {
-  background-color: #a0cbd8;
+  background-color: var(--main-pink);
   border: none;
   color: white;
   padding: 15px 32px;
@@ -185,18 +212,18 @@ a {
 }
 
 .question-answers .answer.revealed#correct{
-  background-color: green;
+  background-color: var(--right-green);
 }
 .question-answers .answer.revealed {
-  background-color: red;
+  background-color: var(--wrong-red);
 }
 /* End Question Answers Section */
 
 .question-next-text {
   color: white;
-  background: #a0cbd8;
+  background: var(--main-pink);
   width: 20vw;
-  height: 2vh;
+  height: 4vh;
   margin: auto;
   text-align: center;
   padding: 15px;
