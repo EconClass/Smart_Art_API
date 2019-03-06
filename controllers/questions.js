@@ -79,6 +79,7 @@ module.exports = (app) => {
                         };
                     };
                 };
+                console.log(data)
                 res.render("quiz-create-questions.hbs", {
                     data: qArray,
                     quizId: qid
