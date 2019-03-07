@@ -1,11 +1,25 @@
+
+
+const totalScore = document.getElementById('total-score')
+const answers = document.getElementsByClassName("answer")
+const nxt = document.getElementById("question-next-id")
+
+
 // sessionStorage.setItem('key', 'value');
 let gameScore = sessionStorage.getItem('game-score');
 if (gameScore === null) {
   gameScore = 0
 }
 
+const random_answer = document.querySelector(".question-answers")
+for (var i = random_answer.children.length; i >= 0; i--) {
+    random_answer.appendChild(random_answer.children[Math.random() * i | 0]);
+}
+
+
+
 window.onload = function(e) {
-  document.getElementById('total-score').innerHTML = sessionStorage.getItem('game-score')
+  totalScore.innerHTML = sessionStorage.getItem('game-score')
 }
 
 console.log('game-score')
@@ -15,9 +29,8 @@ function showCorrectAnswer() {
   // let newScore = parseInt(oldScore, 10) + 1
 
   sessionStorage.setItem('game-score', gameScore);
-
-  document.getElementById('total-score').innerHTML = gameScore
-  console.log(gameScore)
+  totalScore.innerHTML = gameScore
+  // console.log(gameScore)
 
   showAnswers()
 
@@ -25,7 +38,6 @@ function showCorrectAnswer() {
 
 function showAnswers() {
 
-  var answers = document.getElementsByClassName("answer")
   for (let i = 0; i < answers.length; i++) {
       answers[i].classList.add('revealed');
       answers[i].disabled  = true;
@@ -36,7 +48,6 @@ function showAnswers() {
   // var fyi = document.getElementById("additional-info")
   // fyi.style.display = "block"
 
-  var nxt = document.getElementById("question-next-id")
   nxt.style.display = "block"
 
 }
