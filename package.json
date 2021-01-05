@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/EconClass/Smart_Art_API#readme",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "dotenv": "^6.2.0",
